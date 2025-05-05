@@ -10,6 +10,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+<<<<<<< HEAD
+=======
+import io.swagger.v3.oas.annotations.media.Schema;
+
+>>>>>>> cbe5526 ("Commit inicial")
 
 @Entity
 @Table(name = "Categoria")
@@ -18,18 +23,35 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+<<<<<<< HEAD
 
 public class Categoria {
 
+=======
+@Schema(description = "Modelo de la Categoria")
+
+public class Categoria {
+
+	@Schema(description = "ID de la categoria", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+>>>>>>> cbe5526 ("Commit inicial")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< HEAD
     @Column(name = "Nombre", nullable = false, unique = true)
     private String nombre;
 
     @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
     
+=======
+	@Schema(description = "Nombre de la categoria", requiredMode = Schema.RequiredMode.REQUIRED, example = "Estudios por imagenes")
+    @Column(name = "Nombre", nullable = false, unique = true)
+    private String nombre;
+
+	
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
+>>>>>>> cbe5526 ("Commit inicial")
     @JsonIgnore
     private List<Practica> practicas = new ArrayList<>();
 

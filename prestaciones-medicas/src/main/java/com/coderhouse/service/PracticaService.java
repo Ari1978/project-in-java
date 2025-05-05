@@ -103,7 +103,13 @@ public class PracticaService implements CrudInterface<Practica, Long> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+<<<<<<< HEAD
 }
+=======
+
+	
+	}
+>>>>>>> cbe5526 ("Commit inicial")
 
 
 

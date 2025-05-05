@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
+=======
+import org.springframework.web.ErrorResponse;
+>>>>>>> cbe5526 ("Commit inicial")
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +23,15 @@ import com.coderhouse.models.Practica;
 
 import com.coderhouse.service.PracticaService;
 
+<<<<<<< HEAD
+=======
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+>>>>>>> cbe5526 ("Commit inicial")
 
 
 @RestController
@@ -30,6 +43,18 @@ public class PracticaController {
 	@Autowired
 	private PracticaService practicaService;
 	
+<<<<<<< HEAD
+=======
+	
+	@Operation(summary = "Obtener las lista de las prácticas")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Lista de Prácticas obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Practica.class))
+			}),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@GetMapping(path ={"/", ""})
 	public ResponseEntity<List<Practica>> getAllPracticas() {
 		try {
@@ -42,6 +67,21 @@ public class PracticaController {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Obtener una práctica por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Práctica obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Practica.class))
+			}),
+			@ApiResponse(responseCode = "404", description = "Error al intentar obtener la práctica", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@GetMapping("/{practicaId}")
 	public ResponseEntity<?> getPacienteById(@PathVariable Long practicaId){
 		
@@ -56,6 +96,21 @@ public class PracticaController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Registrar una nueva práctica a un paciente, usando DTO")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Práctica registrada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Practica.class))
+			}),
+			@ApiResponse(responseCode = "400", description = "Error al intentar registrar una práctica", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@PostMapping("/asignar-categoria")
 	public ResponseEntity<?> asignarCategoriaPractica(@RequestBody AsignacionCategoriaPracticaDTO dto) {
 		
@@ -83,6 +138,22 @@ public class PracticaController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Editar una práctica por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Práctica editada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Practica.class))
+			}),
+			@ApiResponse(responseCode = "404", description = "Error al intentar editar una práctica", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content
+			(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@PutMapping("/{practicaId}")
 	public ResponseEntity<?> updatePracticaById(@PathVariable Long practicaId,@RequestBody Practica practicaActualizada){
 		
@@ -105,6 +176,22 @@ public class PracticaController {
 	
 
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	@Operation(summary = "Eliminar un práctica")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Práctica eliminada correctamente", content = {
+				@Content() }),
+			@ApiResponse(responseCode = "404", description = "Error al intentar eliminar la práctica", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content
+			(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@DeleteMapping("/{practicaId}")
 	public ResponseEntity<?> deletePracticaById(@PathVariable Long practicaId) {
 		

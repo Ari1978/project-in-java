@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
+=======
+import org.springframework.web.ErrorResponse;
+>>>>>>> cbe5526 ("Commit inicial")
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coderhouse.models.Categoria;
 import com.coderhouse.service.CategoriaService;
 
+<<<<<<< HEAD
+=======
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+>>>>>>> cbe5526 ("Commit inicial")
 @RestController
 @RequestMapping("/api/categorias")
 public class CategoriaController {
@@ -24,6 +37,18 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+<<<<<<< HEAD
+=======
+	
+	@Operation(summary = "Obtener las lista de las categorias")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Lista de categoria obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))
+			}),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@GetMapping(path = {"/", ""})
 	public ResponseEntity<List<Categoria>> getAllCategoria() {
 		try {
@@ -35,6 +60,21 @@ public class CategoriaController {
 				  
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Obtener una categoria por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Categoria obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))
+			}),
+			@ApiResponse(responseCode = "404", description = "Error al intentar obtener la categoria", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@GetMapping("/{categoriaId}")
 	public ResponseEntity<?> getPacienteById(@PathVariable Long categoriaId){
 		
@@ -52,6 +92,21 @@ public class CategoriaController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Crear una nueva categoria")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Categoria registrada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))
+			}),
+			@ApiResponse(responseCode = "400", description = "Error al intentar registrar una categoria", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@PostMapping("/create")
 	public ResponseEntity<Categoria> createCategoria(@RequestBody Categoria categoria) {
 		try {
@@ -64,6 +119,22 @@ public class CategoriaController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+	
+	@Operation(summary = "Editar una categoria por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Categoria editada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Categoria.class))
+			}),
+			@ApiResponse(responseCode = "404", description = "Error al intentar editar una categoria", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content
+			(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@PutMapping("/{categoriaId}")
 	public ResponseEntity<Categoria> updateCategiraById(@PathVariable Long categoriaId,@RequestBody Categoria categoriaActualizada){
 		
@@ -82,6 +153,22 @@ public class CategoriaController {
 	
 
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	
+	@Operation(summary = "Eliminar un categoria")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Categoria eliminada correctamente", content = {
+				@Content() }),
+			@ApiResponse(responseCode = "404", description = "Error al intentar eliminar la categoria", content = 
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content
+			(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	
+>>>>>>> cbe5526 ("Commit inicial")
 	@DeleteMapping("/{categoriaId}")
 	public ResponseEntity<Void> deleteCategoriaById(@PathVariable Long categoriaId) {
 		
