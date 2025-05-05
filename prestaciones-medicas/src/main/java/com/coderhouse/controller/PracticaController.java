@@ -1,0 +1,153 @@
+package com.coderhouse.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.coderhouse.dto.AsignacionCategoriaPracticaDTO;
+import com.coderhouse.models.Practica;
+
+import com.coderhouse.service.PracticaService;
+
+
+
+@RestController
+@RequestMapping("/a/practicas")
+
+
+public class PracticaController {
+	
+	@Autowired
+	private PracticaService practicaService;
+	
+	@GetMapping(path ={"/", ""})
+	public ResponseEntity<List<Practica>> getAllPracticas() {
+		try {
+			  List<Practica> practicas = practicaService.findAll(); 
+				  return ResponseEntity.ok(practicas); // 200
+			  } catch (Exception err) {
+				  return ResponseEntity.internalServerError().build(); //500
+			  }
+				  
+		
+	}
+	
+	@GetMapping("/{practicaId}")
+	public ResponseEntity<?> getPacienteById(@PathVariable Long practicaId){
+		
+		try {
+			  
+			Practica practica = practicaService.findById(practicaId);
+			return ResponseEntity.ok(practica); // 200
+		} catch(IllegalArgumentException e) {
+			return ResponseEntity.notFound().build(); //404
+		}catch(Exception err) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
+		}
+	}
+	
+	@PostMapping("/asignar-categoria")
+	public ResponseEntity<?> asignarCategoriaPractica(@RequestBody AsignacionCategoriaPracticaDTO dto) {
+		
+		if(dto.getCategoriaId() == null) {
+			return ResponseEntity.badRequest().body("El ID de la Categoria no puede ser null");
+		}
+		
+		if(dto.getPracticaId() == null) {
+			return ResponseEntity.badRequest().body("El ID de la Practica no puede ser null");
+		}
+		try {
+			Practica practicaActualizada = practicaService.AsignacionCategoriaPracticaDTO(
+					dto.getPracticaId(),
+					dto.getCategoriaId()
+					);
+			return ResponseEntity.ok(practicaActualizada); //201
+		}catch (IllegalStateException err) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(err.getMessage()); //409
+		}catch (IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
+			
+		}catch (Exception err) {
+			return ResponseEntity.internalServerError().build(); //500
+			
+		}
+	}
+	
+	@PutMapping("/{practicaId}")
+	public ResponseEntity<?> updatePracticaById(@PathVariable Long practicaId,@RequestBody Practica practicaActualizada){
+		
+		
+		if(practicaId == null) {
+			return ResponseEntity.badRequest().body("El ID de la Practica no puede ser null");
+		}
+		try {
+			Practica practica = practicaService.update(practicaId, practicaActualizada);
+			return ResponseEntity.ok(practica); // 200
+			
+		}catch (IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
+	
+	
+		}catch (Exception err) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
+		
+		}
+	
+
+	}
+	@DeleteMapping("/{practicaId}")
+	public ResponseEntity<?> deletePracticaById(@PathVariable Long practicaId) {
+		
+		if(practicaId == null) {
+			return ResponseEntity.badRequest().body("El ID de la Practica no puede ser null");
+		}
+		try {
+			practicaService.deleteById(practicaId); 
+			return ResponseEntity.noContent().build(); // 204
+		
+		}catch (IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
+
+
+		}catch (Exception err) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
+	
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
