@@ -5,11 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-<<<<<<< HEAD
 		<version>3.4.4</version>
-=======
 		<version>3.4.5</version>
->>>>>>> cbe5526 ("Commit inicial")
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.coderhouse</groupId>
@@ -34,7 +31,6 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -64,7 +60,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-=======
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -112,15 +107,11 @@
 
 </dependencies>
 
->>>>>>> cbe5526 ("Commit inicial")
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<<<<<<< HEAD
-=======
 				<configuration>
 					<excludes>
 						<exclude>
@@ -129,7 +120,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
->>>>>>> cbe5526 ("Commit inicial")
 			</plugin>
 		</plugins>
 	</build>
