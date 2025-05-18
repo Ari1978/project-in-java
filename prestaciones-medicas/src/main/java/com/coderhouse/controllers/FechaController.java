@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+
+
 @RestController
 @RequestMapping("/api/fecha")
 public class FechaController {
@@ -41,7 +43,7 @@ public class FechaController {
 		TimeResponseDTO fechaActual = fs.obtenerFechaYHoraActuales();
 		
 		String message = String.format(
-				"Fecha actual: %s %s %d/nHora: %s/nNúmero de Invocaciones: %d/Ultima fecha Mostrada: %s",
+				"Fecha actual: %s %s %d\nHora: %s\nNúmero de Invocaciones: %dUltima fecha Mostrada: %s",
 				
 				fechaActual.getDayOfWeek(),
 				fechaActual.getMonth(),

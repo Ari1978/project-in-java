@@ -13,5 +13,7 @@ public interface UserRestInterface {
 
     User updateUser(User user);
 
-    void deleteUserById(String id);
+
+	void deleteUserById(Long id);
+
 }

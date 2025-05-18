@@ -11,75 +11,85 @@ import com.coderhouse.repositories.TurnoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class DaoFactory {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final PacienteRepository pacienteRepository;
+    private final PracticaRepository practicaRepository;
+    private final TurnoRepository turnoRepository;
 
     @Autowired
-    private PacienteRepository pacienteRepository;
+    public DaoFactory(
+            CategoriaRepository categoriaRepository,
+            PacienteRepository pacienteRepository,
+            PracticaRepository practicaRepository,
+            TurnoRepository turnoRepository
+    ) {
+        this.categoriaRepository = categoriaRepository;
+        this.pacienteRepository = pacienteRepository;
+        this.practicaRepository = practicaRepository;
+        this.turnoRepository = turnoRepository;
+    }
 
-    @Autowired
-    private PracticaRepository practicaRepository;
-
-    @Autowired
-    private TurnoRepository turnoRepository;
-
-    // Persistir una categoría
     public Categoria persistirCategoria(Categoria categoria) {
+        if (categoria == null) throw new IllegalArgumentException("La categoría no puede ser null");
         return categoriaRepository.save(categoria);
     }
 
-    // Persistir una práctica
     public Practica persistirPractica(Practica practica) {
+        if (practica == null) throw new IllegalArgumentException("La práctica no puede ser null");
         return practicaRepository.save(practica);
     }
 
-    // Persistir un paciente
     public Paciente persistirPaciente(Paciente paciente) {
+        if (paciente == null) throw new IllegalArgumentException("El paciente no puede ser null");
         return pacienteRepository.save(paciente);
     }
 
-    // Persistir un turno
     public Turno persistirTurno(Turno turno) {
+        if (turno == null) throw new IllegalArgumentException("El turno no puede ser null");
         return turnoRepository.save(turno);
     }
 
-    // Asignar múltiples prácticas a un paciente
+    @Transactional // Importante para asegurar atomicidad al modificar varias entidades
     public void asignarPacienteAPractica(Long pacienteId, List<Long> practicasIds) {
-        Optional<Paciente> pacienteOpt = pacienteRepository.findById(pacienteId);
-        if (pacienteOpt.isPresent()) {
-            Paciente paciente = pacienteOpt.get();
-            List<Practica> practicas = practicaRepository.findAllById(practicasIds);
-            paciente.getPracticas().addAll(practicas);
-            pacienteRepository.save(paciente);
-        } else {
-            throw new RuntimeException("Paciente no encontrado con ID: " + pacienteId);
+        Paciente paciente = pacienteRepository.findById(pacienteId)
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado con ID: " + pacienteId));
+
+        List<Practica> practicas = practicaRepository.findAllById(practicasIds);
+
+        for (Practica practica : practicas) {
+            if (!practica.getPacientes().contains(paciente)) {
+                practica.getPacientes().add(paciente);
+            }
+            if (!paciente.getPracticas().contains(practica)) {
+                paciente.getPracticas().add(practica);
+            }
         }
+
+        // Generalmente basta con guardar uno de los lados en ManyToMany, pero puedes guardar ambos para asegurarte
+        pacienteRepository.save(paciente);
+        practicaRepository.saveAll(practicas);
     }
 
-    // Obtener todas las categorías
-    public List<Categoria> obtenerCategorias() {
+    public List<Categoria> findAllCategorias() {
         return categoriaRepository.findAll();
     }
 
-    // Obtener todas las prácticas
-    public List<Practica> obtenerPracticas() {
+    public List<Practica> findAllPracticas() {
         return practicaRepository.findAll();
     }
 
-    // Obtener todos los pacientes
-    public List<Paciente> obtenerPacientes() {
+    public List<Paciente> findAllPacientes() {
         return pacienteRepository.findAll();
     }
 
-    // Obtener todos los turnos
-    public List<Turno> obtenerTurnos() {
+    public List<Turno> findAllTurnos() {
         return turnoRepository.findAll();
     }
 }

@@ -34,12 +34,20 @@ public class PracticaService implements CrudInterface<Practica, Long> {
 				.orElseThrow(() -> new IllegalArgumentException("Practica no encontrada"));
 	}
 
-	@Override
 	@Transactional
+	@Override
 	public Practica save(Practica nuevaPractica) {
-		return practicaRepository.save(nuevaPractica);
-
+	    // Si la categoría no tiene ID (es decir, no ha sido guardada previamente)
+	    if (nuevaPractica.getCategoria() != null && nuevaPractica.getCategoria().getId() == null) {
+	        Categoria categoria = nuevaPractica.getCategoria();
+	        // Guardamos la categoría si no tiene ID
+	        nuevaPractica.setCategoria(categoriaRepository.save(categoria));
+	    }
+	    
+	    // Ahora guardamos la práctica con la categoría persistida
+	    return practicaRepository.save(nuevaPractica);
 	}
+
 
 	@Override
 	@Transactional
@@ -100,16 +108,10 @@ public class PracticaService implements CrudInterface<Practica, Long> {
 	}
 
 	public Practica AsignacionCategoriaPracticaDTO(Long practicaId, Long categoriaId) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
-<<<<<<< HEAD
 }
-=======
-
-	
-	}
->>>>>>> cbe5526 ("Commit inicial")
 
 
 
